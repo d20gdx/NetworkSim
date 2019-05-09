@@ -12,3 +12,5 @@ The simulator code has the following features:
 
 **UML and sequence diagram**
 ![UML Diagram](ContentionSimulator/UML.png?raw=true "UML Diagram")
+
+**Typical results from the simulation are shown in the figure below: 
