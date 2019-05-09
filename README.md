@@ -13,7 +13,7 @@ The simulator code has the following features:
 **Class (UML) and Sequence diagram**
 ![UML Diagram](ContentionSimulator/UML.png?raw=true "UML Diagram")
 
-**Typical results from the simulation are shown in the figure below:**
+Typical results from the simulation are shown in the figure below:
 ![Results](ContentionSimulator/results.png?raw=true "Simulation results")
 
 Using spreading factor 7, approximately one thousand nodes can be served with a peak loss of 65%. Increasing the spreading factor to 12 reduces this number to below 30 nodes. It should be noted that this simulation is based on peak packet loss. This provides an indication of the worst-case scenario.
