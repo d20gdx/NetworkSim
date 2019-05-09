@@ -11,7 +11,10 @@ import org.apache.logging.log4j.LogManager;
  */
 public class Runner {
     private static final Logger log4j = LogManager.getLogger(Runner.class.getName());
-    
+    static final String DEFAULT_GATEWAY = "Multitech"; 
+    static final int START_SF = 7; 
+    static final int START_RUN_DURATION_SECS = 60; 
+    static final int INCREASE_RUN_STEP_SIZE = 30; 
     /**
      * Main method to execute LPWAN Network Contention Simulator
      * Run with gateway name parameter to switch targets
@@ -20,43 +23,37 @@ public class Runner {
      */
     public static void main(String args[]) {
 
-        final int minNodes = 1;
-        final int maxNodes = 100;
-        final int stepSize = 30;
-        final int spreadingFactor = 7;
-        final int runDurationSecs = 60;
-        String gateway;
-      
-        // determine the gateway that the simulation is targeting at
-        if (args.length == 0) {
-            gateway = "Multitech";
-        }
-        else {
-            gateway = args[0];
-        }
-       
+        ConnectionManager connectionManager;
+        // set up initial simulation parameters
+        SimParameters props = new SimParameters();
+        props.setMinNodesInRun(1);
+        props.setMaxNodesInRun(100);
+        props.setIncreaseRunStepSize(INCREASE_RUN_STEP_SIZE);
+        props.setRunDurationSecs(START_RUN_DURATION_SECS);
+        props.setTargetGateway(args.length > 0 ? args[0] : DEFAULT_GATEWAY);
+        props.setSpreadingFactor(START_SF);
+        
+        // output text headers in console for CSV output
         System.out.println("Status, Duration, Spreading Factor, Number of Nodes");
 
-        for (int run = minNodes; run <= maxNodes; run += stepSize) {
+        for (int run = props.getMinNodesInRun(); run <= props.getMaxNodesInRun(); run += props.getIncreaseRunStepSize()) {
+           
+            props.setNetworkSwamped(false);
+            props.setStartTime(System.currentTimeMillis());
+            props.setNoNodesInRun(run);
+            
+            // return a static instance of the Connection Manager class
+            connectionManager  = ConnectionManager.getInstance(props);
 
-            ConnectionManager.totalPacketsSent = 0;
-            ConnectionManager.packetsLost = 0;
-            ConnectionManager.runDurationSecs = runDurationSecs;
-            ConnectionManager.swamped = false;
-            ConnectionManager.startTime = System.currentTimeMillis();
-            ConnectionManager.numberOfNodes = run;
-            ConnectionManager.spreadingFactor = spreadingFactor;
-            ConnectionManager.gateway = "Multitech";
-
-            System.out.println("Starting run gateway " + gateway + " for " + run + " nodes at spreading factor " + spreadingFactor);
+            System.out.println("Starting run gateway " + props.getTargetGateway() + " for " + run + " nodes at spreading factor " + props.getSpreadingFactor());
 
             for (int i = 1; i <= run; i++) {
                 log4j.trace("spooling new thread"); 
-                (new Thread(new NodeThread(i, ConnectionManager.spreadingFactor))).start();
+                (new Thread(new NodeThread(i, props.getSpreadingFactor()))).start();
             }
 
             try {
-                Thread.sleep((runDurationSecs + 10) * 1000);
+                Thread.sleep((props.getRunDurationSecs() + 10) * 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

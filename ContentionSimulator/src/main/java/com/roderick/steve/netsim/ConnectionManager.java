@@ -10,23 +10,38 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+
 /**
  * Class to manage simulated connections
  */
 public class ConnectionManager {
     
     private static final Logger log4j = LogManager.getLogger(ConnectionManager.class.getName());
-    static Map<Integer, Integer> channelOccupancy = new HashMap<Integer, Integer>();
+    private static Map<Integer, Integer> channelOccupancy = new HashMap<Integer, Integer>();
+    private static ConnectionManager instance = null;
+    private static SimParameters props;
 
-    static int totalPacketsSent = 0;
-    static int packetsLost = 0;
-    static long startTime = 0;
-    static long numberOfNodes = 0;
-    static int spreadingFactor = 0;
-    static int runDurationSecs = 0;
-    static boolean swamped = false;
-    static String gateway = "";
-
+    /**
+     * Singleton Pattern - returns a static instance of the Connection Manager class
+     * @return
+     */
+    public static synchronized ConnectionManager getInstance(SimParameters properties) {
+       if(instance == null) {
+          instance = new ConnectionManager();
+          instance.setProperties(properties);
+       }
+       return instance;
+    }
+    
+    /**
+     * Set the properties for connection manager
+     * 
+     * @param properties an object holding all the properties required.
+     */
+    public void setProperties(SimParameters properties) {
+        props = properties;
+    }
+        
     /**
      * Instigate a new connection for a given channel and modulation rate
      * 
@@ -38,15 +53,15 @@ public class ConnectionManager {
     public static synchronized boolean makeConnection(int channel, int sf, int nodeId) {
 
         float percentage = 0f;
-        if (totalPacketsSent != 0) {
-            percentage = (float) (packetsLost * 100 / totalPacketsSent);
+        if (props.getTotalPacketsSent()!= 0) {
+            percentage = (float) (props.getPacketsLost() * 100 / props.getTotalPacketsSent());
         }
 
         // Check to see if target duration is met
-        long duration = (System.currentTimeMillis() - startTime) / 1000;
-        if (duration > runDurationSecs) {
-            System.out.println("Completed run," + duration + "," + sf + "," + numberOfNodes);
-            log4j.trace("Completed run," + duration + "," + sf + "," + numberOfNodes); 
+        long duration = (System.currentTimeMillis() - props.getStartTime()) / 1000;
+        if (duration > props.getRunDurationSecs()) {
+            System.out.println("Completed run," + duration + "," + sf + "," + props.getNoNodesInRun());
+            log4j.trace("Completed run," + duration + "," + sf + "," + props.getNoNodesInRun()); 
             return false;
         }
 
@@ -54,10 +69,10 @@ public class ConnectionManager {
         // congestion at levels of 80% loss and above. Cease to send
         // further connection requests
         if (percentage > 80f) {
-            if (!swamped) {
-                log4j.trace("Network congestion detected," + duration + "," + sf + "," + numberOfNodes); 
-                System.out.println("Network congestion detected," + duration + "," + sf + "," + numberOfNodes);
-                swamped = true;
+            if (!props.isNetworkSwamped()) {
+                log4j.trace("Network congestion detected," + duration + "," + sf + "," + props.getNoNodesInRun()); 
+                System.out.println("Network congestion detected," + duration + "," + sf + "," + props.getNoNodesInRun());
+                props.setNetworkSwamped(true); 
             }
             return false;
         }
@@ -68,17 +83,19 @@ public class ConnectionManager {
         }
 
         int count = (int) channelOccupancy.get(channel);
-        totalPacketsSent++;
+        int totalPacketsSent = props.getTotalPacketsSent();        
+        props.setTotalPacketsSent(totalPacketsSent++);
 
         // determine if all channels are currently occupied
         // if not then spawn new connection threads
         if (count++ == 8) {
             log4j.trace("Packet loss detected");
-            packetsLost++;
+            int totalPacketsLost = props.getPacketsLost();
+            props.setPacketsLost(totalPacketsLost--);
         } else {
             channelOccupancy.put(channel, count++);
             // start TimeOut Thread
-            (new Thread(new ConnectionThread(gateway,channel, sf))).start();
+            (new Thread(new ConnectionThread(props.getTargetGateway(),channel, sf))).start();
         }
         return true;
     }
