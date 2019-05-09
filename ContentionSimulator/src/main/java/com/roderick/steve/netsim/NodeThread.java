@@ -7,8 +7,8 @@ package com.roderick.steve.netsim;
 import java.util.Random;
 
 /**
- * Class representing an end user LoraWAN node
- * capable of spooling connections in line
+ * Class representing an end user LoraWAN node.
+ * Each node is capable of spooling connections in line
  * with LoraWAN Spec 1.0 Time on air / duty cycle guidelines
  *
  */
