@@ -10,7 +10,7 @@ The simulator code has the following features:
 * When the connection drops, the occupancy count is decremented.
 * If the selected channel is unavailable, the packet is marked as lost. The percentage of packets lost is recorded.
 
-**UML and sequence diagram**
+**Class (UML) and Sequence diagram**
 ![UML Diagram](ContentionSimulator/UML.png?raw=true "UML Diagram")
 
 **Typical results from the simulation are shown in the figure below:**
