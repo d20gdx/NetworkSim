@@ -15,7 +15,8 @@ public class Runner {
     /**
      * Main method to execute LPWAN Network Contention Simulator
      * Run with gateway name parameter to switch targets
-     * @param args
+     * 
+     * @param args - Gateway type (Multitech / TTN)
      */
     public static void main(String args[]) {
 

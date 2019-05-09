@@ -7,10 +7,15 @@ package com.roderick.steve.netsim;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Class to manage simulated connections
  */
 public class ConnectionManager {
+    
+    private static final Logger log4j = LogManager.getLogger(ConnectionManager.class.getName());
     static Map<Integer, Integer> channelOccupancy = new HashMap<Integer, Integer>();
 
     static int totalPacketsSent = 0;
@@ -33,29 +38,31 @@ public class ConnectionManager {
     public static synchronized boolean makeConnection(int channel, int sf, int nodeId) {
 
         float percentage = 0f;
-
         if (totalPacketsSent != 0) {
             percentage = (float) (packetsLost * 100 / totalPacketsSent);
         }
 
-        // check if target duration meet
+        // Check to see if target duration is met
         long duration = (System.currentTimeMillis() - startTime) / 1000;
         if (duration > runDurationSecs) {
-
-            System.out.println("completed run," + duration + "," + sf + "," + numberOfNodes);
+            System.out.println("Completed run," + duration + "," + sf + "," + numberOfNodes);
+            log4j.trace("Completed run," + duration + "," + sf + "," + numberOfNodes); 
             return false;
         }
 
+        // Calculate the percentage of packets loss. Assume network 
+        // congestion at levels of 80% loss and above. Cease to send
+        // further connection requests
         if (percentage > 80f) {
-
             if (!swamped) {
-                System.out.println("network swamped," + duration + "," + sf + "," + numberOfNodes);
+                log4j.trace("Network congestion detected," + duration + "," + sf + "," + numberOfNodes); 
+                System.out.println("Network congestion detected," + duration + "," + sf + "," + numberOfNodes);
                 swamped = true;
             }
             return false;
         }
 
-        // increment channel
+        // increment channel occupancy count
         if (channelOccupancy.get(channel) == null) {
             channelOccupancy.put(channel, 0);
         }
@@ -63,14 +70,13 @@ public class ConnectionManager {
         int count = (int) channelOccupancy.get(channel);
         totalPacketsSent++;
 
+        // determine if all channels are currently occupied
+        // if not then spawn new connection threads
         if (count++ == 8) {
-            System.out.println("Lost packet");
+            log4j.trace("Packet loss detected");
             packetsLost++;
         } else {
-
-            // successful connection
             channelOccupancy.put(channel, count++);
-
             // start TimeOut Thread
             (new Thread(new ConnectionThread(gateway,channel, sf))).start();
         }
@@ -83,7 +89,7 @@ public class ConnectionManager {
      * @param channel
      */
     public static synchronized void endConnection(int channel) {
-        System.out.println("end connection on channel:" + channel);
+        log4j.trace("Finished sending on channel:" + channel);
         int count = (int) channelOccupancy.get(channel);
         channelOccupancy.put(channel, count--);
     }
