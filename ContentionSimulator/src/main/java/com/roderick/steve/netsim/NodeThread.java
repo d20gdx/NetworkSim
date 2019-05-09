@@ -8,8 +8,9 @@ import java.util.Random;
 
 /**
  * Class representing an end user LoraWAN node.
- * Each node is capable of spooling connections in line
- * with LoraWAN Spec 1.0 Time on air / duty cycle guidelines
+ * Each node is capable of spooling connections. However the 
+ * duty cycle must adhere to LoraWAN Specifications (1.1)
+ * https://lora-alliance.org/resource-hub/lorawantm-specification-v11
  *
  */
 public class NodeThread implements Runnable {
