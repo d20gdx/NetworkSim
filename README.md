@@ -1,4 +1,4 @@
-# Network Contention Simulator for LoraWAN (1.2 specification).
+# Network Contention Simulator for LoraWAN.
 
 Scalability is an important consideration for LoRaWAN networks. As part of a research study (Msc disseration) at UCL, a network contention simulator was developed in Java. The objective of the simulation is to establish a baseline figure for packet loss. Real world packet loss will be higher due  to losses incurred by the RF channel. The classes implement a Java thread-based network contention simulation. 
 
