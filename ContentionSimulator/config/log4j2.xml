@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<Configuration> 
+  <Appenders> 
+    <Console name="STDOUT" target="SYSTEM_OUT"> 
+      <PatternLayout pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n"/> 
+    </Console> 
+        <File name="LOG" fileName="c:/logs/SIM_app.log">
+        <PatternLayout pattern="%d{yyyy-mm-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </File>  
+  </Appenders> 
+  <Loggers> 
+    <Logger name="sim" level="info"/> 
+    <Root level="trace"> 
+      <AppenderRef ref="LOG" level="trace"/> 
+    </Root> 
+  </Loggers> 
+</Configuration>
