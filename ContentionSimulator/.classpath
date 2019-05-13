@@ -9,5 +9,19 @@
 	<classpathentry kind="lib" path="C:/Users/sroderick/eclipse-workspace/91R0_PROIVConnector/shared_3rdParty/lib/logging/log4j-core-2.10.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/sroderick/eclipse-workspace/91R0_PROIVConnector/shared_3rdParty/lib/logging/slf4j-api-1.7.5.jar"/>
 	<classpathentry kind="lib" path="C:/Users/sroderick/eclipse-workspace/91R0_PROIVConnector/shared_3rdParty/lib/logging/slf4j-log4j12-1.7.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sroderick/eclipse-workspace/91R0_PROIVAnalytics/shared_3rdParty/lib/apache/commons-cli-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sroderick/eclipse-workspace/91R0_PROIVAnalytics/shared_3rdParty/lib/apache/commons-codec-1.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sroderick/eclipse-workspace/91R0_PROIVAnalytics/shared_3rdParty/lib/apache/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sroderick/eclipse-workspace/91R0_PROIVAnalytics/shared_3rdParty/lib/apache/commons-dbcp2-2.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sroderick/eclipse-workspace/91R0_PROIVAnalytics/shared_3rdParty/lib/apache/commons-exec-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sroderick/eclipse-workspace/91R0_PROIVAnalytics/shared_3rdParty/lib/apache/commons-fileupload-1.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sroderick/eclipse-workspace/91R0_PROIVAnalytics/shared_3rdParty/lib/apache/commons-httpclient-3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sroderick/eclipse-workspace/91R0_PROIVAnalytics/shared_3rdParty/lib/apache/commons-io-2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sroderick/eclipse-workspace/91R0_PROIVAnalytics/shared_3rdParty/lib/apache/commons-jxpath-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sroderick/eclipse-workspace/91R0_PROIVAnalytics/shared_3rdParty/lib/apache/commons-lang-2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sroderick/eclipse-workspace/91R0_PROIVAnalytics/shared_3rdParty/lib/apache/commons-lang3-3.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sroderick/eclipse-workspace/91R0_PROIVAnalytics/shared_3rdParty/lib/apache/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sroderick/eclipse-workspace/91R0_PROIVAnalytics/shared_3rdParty/lib/apache/commons-net-2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sroderick/eclipse-workspace/91R0_PROIVAnalytics/shared_3rdParty/lib/apache/commons-pool2-2.4.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
