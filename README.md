@@ -26,3 +26,8 @@ The table below lists assumptions made in creating the simulation.
 |	Fixed transmission rate	|	For the purposes of simplifying the simulation, each node was assumed to transmit at set intervals. An initial random delay of up to 12 hours was introduced to ensure separation between transmissions.	|
 |	Fixed packet length	|	Time on-air figures for each spreading factor assumed transmission of a 105 byte payload [54]	|
 |	Concurrent processing of incoming packets	|	Multi-channel gateways can process packets arriving simultaneously on different channels or on the same channel with different spreading factors. The exact number of incoming packets that can be processed simultaneously depends on the gateway hardware.	|
+
+A full write up of the study can be found here
+![Dissertation](ContentionSimulator/sroderick.pdf?raw=true "Dissertation")
+
+SRoderick 2019
