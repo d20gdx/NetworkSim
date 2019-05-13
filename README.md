@@ -27,7 +27,6 @@ The table below lists assumptions made in creating the simulation.
 |	Fixed packet length	|	Time on-air figures for each spreading factor assumed transmission of a 105 byte payload [54]	|
 |	Concurrent processing of incoming packets	|	Multi-channel gateways can process packets arriving simultaneously on different channels or on the same channel with different spreading factors. The exact number of incoming packets that can be processed simultaneously depends on the gateway hardware.	|
 
-A full write up of the study can be found here
-![Dissertation](ContentionSimulator/sroderick.pdf?raw=true "Dissertation")
+A full write up of the study can be found here (ContentionSimulator/sroderick.pdf)
 
-SRoderick 2019
+Steve Roderick 2019
