@@ -23,8 +23,7 @@ The table below lists assumptions made in creating the simulation.
 
 |	Assumption	|	Detail	
 |	:---	|	:---	|
-|	Randomised Duty Cycle	|	Each node was allocated a random duty cycle between 1 and 30 secs of airtime over a 24-hour period. This conforms to regulations in the ISM bands.	|
-|	Fixed transmission rate	|	For the purposes of simplifying the simulation, each node was assumed to transmit at set intervals. An initial random delay of up to 12 hours was introduced to ensure separation between transmissions.	|
+|	Fixed transmission rate	|	For the purposes of simplifying the simulation, each node was assumed to transmit at set intervals. An initial random delay was introduced to ensure separation between transmissions.	|
 |	Fixed packet length	|	Time on-air figures for each spreading factor assumed transmission of a 105 byte payload [54]	|
 |	Concurrent processing of incoming packets	|	Multi-channel gateways can process packets arriving simultaneously on different channels or on the same channel with different spreading factors. The exact number of incoming packets that can be processed simultaneously depends on the gateway hardware.	|
 
