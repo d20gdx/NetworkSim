@@ -50,12 +50,14 @@ public class Runner {
                 (new Thread(new NodeThread(i, props.getSpreadingFactor()))).start();
             }
 
+            // give time for the connections to complete
             try {
                 Thread.sleep((props.getRunDurationSecs() + 10) * 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            // wait for all nodes to complete
+            
+            // check that all nodes have completed
             while (NodeThread.numberOfNodes > 0) {
                 System.out.println("Number of nodes:" + NodeThread.numberOfNodes);
             }
