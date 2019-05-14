@@ -23,7 +23,6 @@ public class Runner {
      */
     public static void main(String args[]) {
 
-        ConnectionManager connectionManager;
         // set up initial simulation parameters
         SimParameters props = new SimParameters();
         props.setMinNodesInRun(1);
@@ -41,12 +40,11 @@ public class Runner {
             props.setNetworkSwamped(false);
             props.setStartTime(System.currentTimeMillis());
             props.setNoNodesInRun(run);
-            
-            // return a static instance of the Connection Manager class
-            connectionManager  = ConnectionManager.getInstance(props);
-
+    
             System.out.println("Starting run gateway " + props.getTargetGateway() + " for " + run + " nodes at spreading factor " + props.getSpreadingFactor());
 
+            ConnectionManager.setProperties(props);
+            
             for (int i = 1; i <= run; i++) {
                 log4j.trace("spooling new thread"); 
                 (new Thread(new NodeThread(i, props.getSpreadingFactor()))).start();

@@ -18,27 +18,16 @@ public class ConnectionManager {
     
     private static final Logger log4j = LogManager.getLogger(ConnectionManager.class.getName());
     private static Map<Integer, Integer> channelOccupancy = new HashMap<Integer, Integer>();
-    private static ConnectionManager instance = null;
     private static SimParameters props;
 
-    /**
-     * Singleton Pattern - returns a static instance of the Connection Manager class
-     * @return
-     */
-    public static synchronized ConnectionManager getInstance(SimParameters properties) {
-       if(instance == null) {
-          instance = new ConnectionManager();
-          instance.setProperties(properties);
-       }
-       return instance;
-    }
+
     
     /**
      * Set the properties for connection manager
      * 
      * @param properties an object holding all the properties required.
      */
-    public void setProperties(SimParameters properties) {
+    public static void setProperties(SimParameters properties) {
         props = properties;
     }
         
