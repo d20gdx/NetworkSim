@@ -51,6 +51,7 @@ public class Runner {
             }
 
             // give time for the connections to complete
+            // could enhance by interrupting when other threads complete
             try {
                 Thread.sleep((props.getRunDurationSecs() + 10) * 1000);
             } catch (InterruptedException e) {
