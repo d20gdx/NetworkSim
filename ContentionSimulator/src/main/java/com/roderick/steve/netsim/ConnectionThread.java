@@ -97,6 +97,10 @@ public class ConnectionThread implements Runnable {
     @Override
     public void run() {
         try {
+            // LoRaWAN connections persist until their time of air is complete
+            // this is governed by duty cycle restrictions
+            // could be enhanced by using distribution of actual connection times 
+            // from measurement campaign
             Thread.sleep((long) Math.floor(timeOnAir * 1000));
         } catch (InterruptedException e) {
             e.printStackTrace();
