@@ -77,7 +77,7 @@ public class ConnectionManager {
         if (count++ == 8) {
             log4j.trace("Packet loss detected");
             int totalPacketsLost = props.getPacketsLost();
-            props.setPacketsLost(totalPacketsLost--);
+            props.setPacketsLost(totalPacketsLost++);
         } else {
             channelOccupancy.put(channel, count++);
             // start TimeOut Thread
