@@ -17,6 +17,7 @@ public class ConnectionManager {
     private static final Logger log4j = LogManager.getLogger(ConnectionManager.class.getName());
     private static Map<Integer, Integer> channelOccupancy = new HashMap<Integer, Integer>();
     private static SimParameters props;
+    private static int channels = 8;
 
     /**
      * Set the properties for connection manager
@@ -74,7 +75,7 @@ public class ConnectionManager {
 
         // determine if all channels are currently occupied
         // if not then spawn new connection threads
-        if (count++ == 8) {
+        if (count++ == channels) {
             log4j.trace("Packet loss detected");
             int totalPacketsLost = props.getPacketsLost();
             props.setPacketsLost(totalPacketsLost++);
